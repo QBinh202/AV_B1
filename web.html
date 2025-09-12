@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trắc nghiệm Listening & Reading (41–200)</title>
+  <style>
+    /* === CÀI ĐẶT ĐỂ FULL MÀN HÌNH TRONG GOOGLE SITES === */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden; /* Ngăn cuộn ngang không cần thiết */
+    }
+    /* =================================================== */
+
+    :root { --bg:#0b1220; --card:#111a2e; --text:#e9eef8; --accent:#5cc8ff; --ok:#1db954; --bad:#ff4d4f; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto; /* Căn giữa nội dung */
+      padding: 28px 16px 96px 16px; /* Thêm padding để nội dung không dính vào cạnh */
+    }
+    .header { text-align: center; margin-bottom: 24px; }
+    .title { font-size: 24px; font-weight: 800; }
+    .passage {
+        background: #1a2541;
+        border-left: 3px solid var(--accent);
+        padding: 12px 16px;
+        margin-top: 24px; /* Tạo khoảng cách phía trên mỗi đoạn văn mới */
+        margin-bottom: 16px;
+        border-radius: 8px;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .passage-title {
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #c3d9ff;
+        font-size: 16px;
+    }
+    .passage p { margin: 0 0 1em 0; }
+    .passage p:last-child { margin-bottom: 0; }
+    .btn {
+      appearance: none;
+      border: 1px solid #2a3a63;
+      color: var(--text);
+      background: linear-gradient(180deg, #1a2443, #121b35);
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      transition: .15s;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: #3b61a3;
+      box-shadow: 0 6px 16px rgba(92, 200, 255, .12);
+    }
+    .btn:disabled { cursor: not-allowed; opacity: 0.5; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .card {
+      background: linear-gradient(180deg, #111a2e, #0f1830);
+      border: 1px solid #1f2b49;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .qno { font-weight: 800; color: #9cc9ff; }
+    .qtext { margin: 8px 0 10px; line-height: 1.45; }
+    .choices { display: grid; gap: 8px; margin-top: 4px; }
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0e1831;
+      border: 1px solid #203054;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .choice:hover { border-color: #2b477c; }
+    .choice input { accent-color: var(--accent); width: 18px; height: 18px; }
+    .result {
+      margin: 24px 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px dashed #2a3a63;
+      background: #0c1630;
+      text-align: center;
+      font-size: 18px;
+    }
+    .explain { font-size: 13px; color: #ffd9b3; margin-top: 8px; }
+    .correct { border-color: #2a6f3d !important; background: rgba(29, 185, 84, .1); }
+    .incorrect { border-color: #7a2a2b !important; background: rgba(255, 77, 79, .1); }
+    
+    @media (min-width: 700px) { 
+      .grid { grid-template-columns: 1fr 1fr; } 
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="header">
+      <h1 class="title">Bộ câu hỏi 41–200 • Listening & Reading</h1>
+    </div>
+
+    <div id="summary" class="result" style="display:none;"></div>
+    
+    <div id="quiz-container"></div>
+
+    <div style="text-align:center;">
+        <button class="btn" id="btnSubmit">Nộp bài</button>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      // === LISTENING 41-100 ===
+      {no:41, text:"What are the speakers planning to do?", options:["Sightsee downtown","Go to a movie","See a play","Tell jokes"]},
+      {no:42, text:"How does the man feel?", options:["Sick","Good","Bored","Worried"]},
+      {no:43, text:"What time will the speakers leave?", options:["6:15","5:30","7:00","11:00"]},
+      {no:44, text:"What is Mrs. Kowalski doing?", options:["Eating","Sleeping","Reading a report","Attending a meeting"]},
+      {no:45, text:"What is the receptionist NOT going to do?", options:["Take a message","Answer the telephone","Answer the caller's questions","Transfer the call to Mrs. Kowalski"]},
+      {no:46, text:"When will the caller call again?", options:["At noon","Later this afternoon","Tomorrow morning","Tomorrow afternoon"]},
+      {no:47, text:"According to the man, how many wedding guests will there be?", options:["Less than 100","At least 100","300","More than 400"]},
+      {no:48, text:"What does the man ask the woman to do?", options:["Invite more people to their wedding","Marry him","Cater his wedding","Have the caterer plan for extra guests"]},
+      {no:49, text:"What kind of food does the man want at the wedding?", options:["Fish","Chicken","Vegetarian","Steak"]},
+      {no:50, text:"When will the woman return?", options:["In one hour","Before lunch","In the afternoon","Tomorrow"]},
+      {no:51, text:"What will she pick up?", options:["Ice","A suit","A sweater","Photographs"]},
+      {no:52, text:"How much does she have to pay?", options:["$7.00","$11.00","$17.00","$36.00"]},
+      {no:53, text:"When did the woman go to the library?", options:["Sunday","Monday","Tuesday","Friday"]},
+      {no:54, text:"What did she do at the library?", options:["Write a report","Used the Internet","Searched for books","Read fashion magazines"]},
+      {no:55, text:"How does the man feel?", options:["Hot","Fine","Tired","Sorry"]},
+      {no:56, text:"What does the man tell the woman to do?", options:["Hurry","Get thinner","Put on boots","Change her dress"]},
+      {no:57, text:"How is the weather?", options:["It’s snowing","It’s raining","It’s fine","It’s hot"]},
+      {no:58, text:"Where are the speakers going?", options:["To work","To a show","To a dinner","To the shoe store"]},
+      {no:59, text:"Where are the speakers?", options:["In an office","In a clothes store","In a health club","In an exercise equipment store"]},
+      {no:60, text:"How long will the man stay?", options:["One hour","Four hours","Until 4:00","Until 8:00"]},
+      {no:61, text:"How can the man get more information?", options:["Call","Read a book","Ask the woman","Go online"]},
+      {no:62, text:"Where are the speakers?", options:["At a concert","At a lecture","At a movie","At a play"]},
+      {no:63, text:"How much did the tickets cost?", options:["$50 each","$100 each","$115 each","$150 each"]},
+      {no:64, text:"How does the man feel about the cost of the tickets?", options:["Sad","Glad","Angry","Comfortable"]},
+      {no:65, text:"What did the man order?", options:["Pens","Pencils","Envelopes","Notebooks"]},
+      {no:66, text:"How many did he order?", options:["Four dozen","Five dozen","Four hundred","Five hundred"]},
+      {no:67, text:"When will the order arrive?", options:["Tuesday","Wednesday","On the weekend","Next week"]},
+      {no:68, text:"Why does the man have to go to the office early?", options:["To have breakfast there","To attend a meeting","To finish a report","To get ready for a trip"]},
+      {no:69, text:"When will Mr. Park return to the office?", options:["Tonight","Tomorrow morning","Tomorrow afternoon","Tomorrow night"]},
+      {no:70, text:"When does the man plan to leave home?", options:["4:08","6:00","6:30","8:00"]},
+      {no:71, text:"What is the call about?", options:["A delayed fight.","A job opening.","A piece of luggage.","A trip to Bangkok."]},
+      {no:72, text:"Where will Mr. Kaufman receive his luggage?", options:["At his hotel.","At a post office.","At the airport.","At the Baggage Service Office."]},
+      {no:73, text:"When is the shipment expected to arrive?", options:["This evening.","Tomorrow morning.","Tomorrow afternoon.","Tomorrow evening."]},
+      {no:74, text:"What is the purpose of the announcement?", options:["To announce a special on fruit prices.","To tell shoppers the shop is closing soon.","To advertise the new store hours.","To welcome customers to the store."]},
+      {no:75, text:"Where should shoppers with questions go?", options:["To the service counter.","To the produce section.","To the nearest cashier.","To the assistant manager."]},
+      {no:76, text:"What change is being introduced this weekend?", options:["There will be daily specials on fruit.","The shop will be remodeled.","The shop will stay open longer.","The shop will close earlier."]},
+      {no:77, text:"Who is the speaker?", options:["A waiter.","A restaurant customer.","The manager.","A cook."]},
+      {no:78, text:"What comes with the main dishes?", options:["A beverage.","Silverware.","A side dish.","Dinner rolls."]},
+      {no:79, text:"How much does the cheesecake cost?", options:["$ 3.","$ 4.","$ 10.","$ 16."]},
+      {no:80, text:"Who is the speaker?", options:["A customer service representative.","A president.","A marketing agent.","A manager."]},
+      {no:81, text:"What is the announcement about?", options:["Changes in customer service.","Globalization of advertising.","A new marketing strategy.","An increase in profits."]},
+      {no:82, text:"What will staff members receive?", options:["A raise.","A discount on all goods.","A bonus.","A coupon."]},
+      {no:83, text:"What is the broadcast about?", options:["A jazz musician.","A radio DJ.","A classical music concert.","A must producer."]},
+      {no:84, text:"How old is Mr. Checks?", options:["Sixteen.","Seventeen.","Eighty-six.","Sixty-eight."]},
+      {no:85, text:"When will the interview take place?", options:["Tomorrow morning.","Tonight after the concert.","Tomorrow afternoon.","Tomorrow at 8 p.m."]},
+      {no:86, text:"Who is Calvin Munson?", options:["A college professor.","A researcher.","A repair person.","A windmill designer."]},
+      {no:87, text:"How does the speaker know Calvin Munson?", options:["She heard one of his previous talks.","They are colleagues.","She was introduced by a friend.","They met in college."]},
+      {no:88, text:"What does the speaker mention about her group?", options:["It is changing.","It helps with construction projects.","It is small.","It is a research group."]},
+      {no:89, text:"What is the 'Weekly Star Report'?", options:["A new film.","A theater show.","A radio show.","A television show."]},
+      {no:90, text:"Who is Barry Tipp?", options:["A news anchor.","A movie writer.","A director.","An actor."]},
+      {no:91, text:"How long has Mr. Tipp worked in his profession?", options:["Six years.","Ten years.","Twelve years.","Twenty years."]},
+      {no:92, text:"What is the advertisement about?", options:["Custom clothing design.","Carpet cleaning.","Dry cleaning.","Home appliance delivery."]},
+      {no:93, text:"What has the firm recently done?", options:["Increased staff.","Moved to a new place.","Ended some old services.","Started a training program."]},
+      {no:94, text:"What does the company provide this month only?", options:["Free gifts.","Pickup service.","A cheaper price.","Overnight delivery."]},
+      {no:95, text:"Where was the meeting held?", options:["In an auditorium.","At the governor's office.","At City Hall.","At a construction site."]},
+      {no:96, text:"What was the meeting about?", options:["Lowering taxes.","Increased government spending.","Environmental issues.","Building a high-speed monorail."]},
+      {no:97, text:"Why do some people object to the project?", options:["It will make traffic worse.","It will increase pollution.","It will help only some people.","It will be efficiently."]},
+      {no:98, text:"What will be repaired?", options:["Some elevators.","Office equipment.","A telephone system.","A building's electrical wiring."]},
+      {no:99, text:"By what day is the repair work expected to be finished?", options:["Sunday.","Monday.","Tuesday.","Wednesday."]},
+      {no:100, text:"What does Mr. Peters offer to do?", options:["Turn on the elevators in an emergency.","Finish the work quickly.","Apologize to the office workers.","Send employees to help move heavy items."]},
+      
+      // === READING 101-140 ===
+      {no:101, text:"If the customer _____ not satisfied, please have him call the manager.", options:["am","is","are","be"]},
+      {no:102, text:"Our goal is to turn _____ into success.", options:["failing","fail","failed","failure"]},
+      {no:103, text:"The plane will be landing _____ Chicago in twenty minutes.", options:["with","into","in","for"]},
+      {no:104, text:"The seminar was canceled because the invitations were not _____ in time.", options:["printer","printed","printing","print"]},
+      {no:105, text:"If the waiter cannot handle your request, the captain _____ assist you.", options:["will","has","did","is"]},
+      {no:106, text:"We depend on Mr. Wong for his knowledge and _____.", options:["leading","lead","leadership","leader"]},
+      {no:107, text:"The fax machine is _____ the postage meter and the copy machine.", options:["among","outside","between","through"]},
+      {no:108, text:"Ms. Guida expects costs to _____ 5 percent this year.", options:["ascend","increase","escalate","raise"]},
+      {no:109, text:"The head of sales _____ to San Diego for the annual sales convention.", options:["went","gone","go","going"]},
+      {no:110, text:"Because Ms. Kimura has a long _____, she will always leave work at 5:30.", options:["commute","commune","community","compost"]},
+      {no:111, text:"We ask that all important correspondence be sent by registered _____ certified mail.", options:["or","however","but","yet"]},
+      {no:112, text:"The assistant jumped up on a chair and screamed when he saw a mouse _____ across the lounge.", options:["ran","run","runs","had run"]},
+      {no:113, text:"_____ the plumber could repair the toilet, he still would not do it.", options:["Therefore","However","So","Even if"]},
+      {no:114, text:"The laborers were _____ with mud after spending all day digging the ditch.", options:["covering","cover","covered","coverage"]},
+      {no:115, text:"_____ his joining the group late, his manager is confident that he will fit right in.", options:["Even though","Despite","If","However"]},
+      {no:116, text:"I filed my report last week, but now I wish I _____.", options:["have waited","waited","had waited","wait"]},
+      {no:117, text:"The doctors will be ready to go home as soon as they _____ their rounds.", options:["will finish","will have finished","are finishing","finish"]},
+      {no:118, text:"Vice President D'Agostino had her driver _____ her husband at the airport.", options:["picking up","to pick up","pick up","picked up"]},
+      {no:119, text:"Mrs. Kurtoglu is a fast learner, and she has _____ mastered the drafting techniques.", options:["already","ever","yet","still"]},
+      {no:120, text:"We have to complete the project because we still have a _____ obligation.", options:["contract","contractual","contracts","contracting"]},
+      {no:121, text:"Who _____ how many of our clients can contact us at our new office?", options:["knows","is knowing","has known","are knowing"]},
+      {no:122, text:"The advertising staff has been working hard but has not finished the campaign _____.", options:["still","yet","anymore","already"]},
+      {no:123, text:"The high gross _____ product is an outcome of their work ethic.", options:["nationally","nationwide","nation","national"]},
+      {no:124, text:"Our company has chosen the Swedish vendor _____ they guarantee the best after sales service.", options:["and","because","but","so"]},
+      {no:125, text:"The employee manual needs to be revised because much of the _____ is out of date.", options:["contempt","contest","content","contend"]},
+      {no:126, text:"Most small business owners are required to file their taxes _____.", options:["quarterly","usually","anymore","still"]},
+      {no:127, text:"We plan to hire a number of new staff members and will have to _____ our workspace in order to have room for them.", options:["expand","enormous","extent","enlarge"]},
+      {no:128, text:"Because of the strong economy, there has been an increase in exported _____ imported goods.", options:["and","though","or","still"]},
+      {no:129, text:"If Fujikin, Inc. _____ more available capital, they would have expanded their European operations.", options:["has","had had","were having","has had"]},
+      {no:130, text:"_____ the patient's condition get worse, the nurse will call in an internist.", options:["Might","Unless","Should","If"]},
+      {no:131, text:"She earns more money than her coworkers _____ she works a lot of overtime hours.", options:["although","because","despite","nevertheless"]},
+      {no:132, text:"Prices continue to _____, causing a great deal of financial difficulty.", options:["up","high","raise","rise"]},
+      {no:133, text:"The walls were painted this morning, so _____ them.", options:["touch","don't touch","touching","not to touch"]},
+      {no:134, text:"Mr. Sato _____ here for many years and is one of our most knowledgeable employees.", options:["is working","used to work","has been working","will have worked"]},
+      {no:135, text:"Ms. Hansen got the job _____ she has very little experience and no college degree.", options:["because","even though","moreover","since"]},
+      {no:136, text:"We can't work on a solution until we _____ the source of the problem.", options:["identification","indemnify","identity","identify"]},
+      {no:137, text:"We discussed _____ a temporary assistant to help out with the extra work.", options:["hire","hired","hiring","to hire"]},
+      {no:138, text:"Very few people showed _____ for the conference.", options:["up","to","off","through"]},
+      {no:139, text:"We will review your application _____ you have submitted all your paperwork.", options:["soon","as soon","as soon as","soon than"]},
+      {no:140, text:"The _____ of this business is a result of a lot of hard work and some solid financial support.", options:["success","successful","succeed","successfully"]},
+
+      // === READING 141-200 ===
+      {
+        no: 141,
+        text: "Select the answer for (141).",
+        options: ["comply", "compliant", "compliance", "complicate"],
+        passageHTML: `<div class="passage-title">Questions 141-143 refer to the following letter.</div><p><strong>HTCD Bank</strong><br>20 State Street<br>Trenton, New Jersey 08625</p><p>June 17, 20__<br>Ms. Nukket Topal<br>451 West Huron Drive<br>Chicago, Illinois 60239</p><p>Dear Ms. Topal:</p><p>We received your e-mail requesting to close your savings account. Unfortunately, we are unable to (141)_____ with the request because it was sent by e-mail.</p><p>To close your account, please mail us a letter stating that you wish to close your savings account. Don't forget to include your sixteen-digit account number and the mailing address where you would like to receive your remaining balance. You can also close your account by visiting our nearest branch.</p><p>We always strive to give our customers the best possible service. We hope that you have been happy with (142)_____ and will consider using our bank again in the future. If you are closing your account because you have had an (143)_____ experience, please contact our customer service representatives to discuss how we can serve you better.</p><p>If we may be of further assistance, please contact us any time. We look forward to working with you.</p><p>Sincerely,<br>Enrich Gleisner, Account Manager</p>`
+      },
+      {no: 142, text: "Select the answer for (142).", options: ["me", "us", "him", "them"]},
+      {no: 143, text: "Select the answer for (143).", options: ["adequate", "efficient", "interesting", "unsatisfactory"]},
+      {
+        no: 144,
+        text: "Select the answer for (144).",
+        options: ["color", "location", "condition", "dimension"],
+        passageHTML: `<div class="passage-title">Questions 144-146 refer to the following e-mail.</div><p><strong>From:</strong> Marika Fiehne<br><strong>To:</strong> Astrid Anderson<br><strong>Subject:</strong> New office equipment request</p><p>Thank you for welcoming me to Ontel. My first week working here has been wonderful.</p><p>You asked me to e-mail you about the (144)_____ of my office. Overall, it is very nice and suits most of my needs. However, I would like a few small changes. Could I get a different chair? The current chair is really too small for me. I'd also like a conference table for (145)_____ with clients.</p><p>My office also needs some technology upgrades. The computer's Internet connection is slow and frequently freezes in the afternoons. It is very frustrating. Also, I don't have the ability to participate in video teleconferencing. Would it be possible for me to get this? I am expected to participate in weekly conferences with our partners in other countries.</p><p>I will need a visit from the IT specialist. I should have antivirus software installed on my computer. Maybe my current computer has it, but I (146)_____ find it.</p><p>Thank you.</p>`
+      },
+      {no: 145, text: "Select the answer for (145).", options: ["meet", "to meet", "meeting", "will meet"]},
+      {no: 146, text: "Select the answer for (146).", options: ["should not", "could not", "must not", "may not"]},
+      {
+        no: 147,
+        text: "Select the answer for (147).",
+        options: ["reacted", "resigned", "rejoined", "resisted"],
+        passageHTML: `<div class="passage-title">Questions 147-149 refer to the following memo.</div><p><strong>From:</strong> Sarah Spencer<br><strong>To:</strong> Eduardo Allende<br><strong>Re:</strong> Vacancy on Information Technology Committee</p><p>Maria Robles has (147)_____ from her position on the IT Committee.</p><p>You have been recommended to fill the open spot. I hope that you want to participate on this important committee.</p><p>Your time commitment would be minimal; however, the (148)_____ is an important one. As you know, criminals have broken into our competitors' computer systems. These hackers have cost our industry millions in lost and compromised data. To prevent this electronic theft, we have installed anti-hacking measures on our company's computers. This is one of the IT Committee's best achievements.</p><p>Our company's sales (149)_____ because news spread about our anti-hacking devices. Customers trust us to protect their financial data.</p><p>The IT Committee agrees that you are our ideal new member. Please consider this invitation and get back to me within the next few days.</p><p>Thanks.</p>`
+      },
+      {no: 148, text: "Select the answer for (148).", options: ["respond", "responsible", "responsibly", "responsibility"]},
+      {no: 149, text: "Select the answer for (149).", options: ["have stagnated", "have increased", "have declined", "have stalled"]},
+      {
+        no: 150,
+        text: "Select the answer for (150).",
+        options: ["tracking", "accessing", "following", "including"],
+        passageHTML: `<div class="passage-title">Questions 150-152 refer to the following email.</div><p><strong>Business Name Statements</strong></p><p>A business owner must register the name of a new business with the county clerk prior to conducting business. Registrants must first ensure that the name they have selected is not already in use. This can be accomplished by visiting the county clerk's office or by (150)_____ the list of registered business names on the county clerk's web site.</p><p>The Business Name Statement must be completed in full including the address and telephone number of the business owner. Statements must then be brought to the county clerk's office to be recorded and filed.</p><p>State law requires the registrant to publish the Business Name Statement within 30 days in a newspaper that serves the county (151)_____ the business is located.</p><p>A Business Name Statement expires five years from the date it was filed. A new Business Name Statement must be submitted to the county clerk before that time, but it need not be published.</p><p>The (152)_____ fee for registering a business is $10, payable by check or money order. Subsequent Statements must be accompanied by a $5 payment seen in the attached example.</p>`
+      },
+      {no: 151, text: "Select the answer for (151).", options: ["which", "in that", "in which", "what"]},
+      {no: 152, text: "Select the answer for (152).", options: ["new", "initial", "diverse", "high"]},
+      {
+        no: 153,
+        text: "What news has been announced by Sorius?",
+        options: ["The beginning of their annual hiring season.", "They are hiring for the first time in four years.", "They are expanding their work force again.", "Employees will be transferred to other."],
+        passageHTML: `<div class="passage-title">Questions 153-154 refer to the following announcement.</div><p><strong>Sorius Starts its Hiring Season Again</strong></p><p>For the second time in four years the Sorius Company plans to expand its work force.</p><p>A spokesperson for Sorius, one of the nation's largest electronic companies, said at a press conference in Boston that its staff complement would grow by nearly 9,200 this year, mainly because of an exponential increase in their sales and orders from other companies.</p><p>The press predicts Sorius' job rolls to reach 113,350 worldwide by the end of the year, which means hiring more than 4,500 people over the next few months.</p><p>Some 2,500 workers are expected to be added in the L.A., California, another 1,500 in Wichita, Kansas city, and the remainder from other areas around the country.</p>`
+      },
+      {no: 154, text: "What has prompted Sorius to take its actions?", options: ["A change in employment law.", "New products to be manufactured quickly.", "A change in government policy regarding the electronic industry.", "A dramatic increase in sales of the products."]},
+      {
+        no: 155,
+        text: "What is the purpose of Wang Chung's e-mail?",
+        options: ["To request a new connection.", "To tell the company about a bad storm.", "To let the company know about a mistake in a bill.", "To cancel the cable modem connection."],
+        passageHTML: `<div class="passage-title">Questions 155-157 refer to the following e-mail.</div><p><strong>To:</strong> sysmax@business.com<br><strong>Subject:</strong> Internet bill problem (87910W)</p><p>I have just received a bill in the mail stating that I owe $23.00 for my wireless connection, and $14.00 for my cable modem connection. Last month, during the first week of July, I have phoned the customer service line to let them know I was going to switch my cable modem connection for a wireless connection. I have explained how the cable modem connection disconnects without warning during bad weather, most likely because the signal can't reach the modem during a bad storm. I have contacted your offices at Sysmax about the problem, and ended up switching to your wireless connection.</p><p>The kind lady that helped me on the other line at your customer services apologized for the problem and said she would not bill me for the cable modem for last month. It turns out I got charged with the cable modem bill and the wireless connection bill. I would appreciate if you, at Sysmax, can send me a new bill without the charges for the cable modem connection, and I will happily keep using your company's services as long as this matter is handled. By the way, I am currently happy with the speed of the wireless connection.</p><p>Sincerely,<br>Wang Chung</p>`
+      },
+      {no: 156, text: "What kind of company is Wang Chung writing to?", options: ["A weather forecast company", "A cable TV company", "An electricity company", "An internet connection company"]},
+      {no: 157, text: "When did the company change Wang Chung's cable to a wireless?", options: ["August", "July", "June", "September"]},
+      {
+        no: 158,
+        text: "When can reservations be made?",
+        options: ["Anytime on Fridays", "1PM to 8PM", "Next week", "Fridays from 1PM to 8PM"],
+        passageHTML: `<div class="passage-title">Questions 158-159 refer to the following information.</div><p><strong>Please Note:</strong></p><p>- Employees who need to use the parking lot will have to reserve their spots every Friday for their parking spots for the next week.<br>- The reservations must be made on Fridays only, from 1PM to 8PM, to the secretary in the front office.<br>- Your co-workers cannot reserve your spots for you, unless you are out somewhere for the company for the day. We are doing this to prevent problems of co-workers reserving all the good spots for their friends and the other workers left with all the far spots.<br>- Lastly, we are doing this because some feel it is unfair that only the boss and the manager get their own parking spots in the front, so we are trying out new ways to have a good spot in the parking lot.</p>`
+      },
+      {no: 159, text: "Why do they have to make reservations?", options: ["There was problem of co-workers taking the good spots.", "So you can take the boss's parking spot.", "So your close co-workers can park next to each other.", "There were complaints only the boss and the manager having good spots."]},
+      {
+        no: 160,
+        text: "What does bimonthly mean in this passage?",
+        options: ["Every month.", "Every 2 months.", "Twice a month.", "A salaried worker."],
+        passageHTML: `<div class="passage-title">Questions 160-161 refer to the following business notice.</div><p><strong>Wage and pay period policies</strong><br>Wages are 9.50 an hour for the first 2 months during the job. Each hour after 8 hours of work, you will receive an over-time pay per hour, which is 1.5 times the amount of your wage. After 10PM, the same policy will come into effect. If you have worked past 8 hours and manage to work past 10PM also, the wage after 10pm will be 2 times the amount of your wage.</p><p><strong>Pay period</strong><br>Every employee will receive their monthly pay the following 5th of the next month. For example, the September hours you have worked, you will get your pay October 5th. If the 5th is either a holiday or a weekend, you will receive your pay either the 3rd or the 4th.</p><p><strong>Time sheets</strong><br>Employees, bimonthly or monthly, must fill out a time sheet. Time sheets are due as follows:<br>Bimonthly - Last working day of every week<br>Monthly - Last working day of every month</p><p><strong>IMPORTANT</strong><br>Failure to turn in your time sheets on time may result in your pay to roll over to the next pay date. NO EXCEPTIONS.</p>`
+      },
+      {no: 161, text: "If the 5th of March is Sunday, when do employees get the pay of February?", options: ["Feb 25th.", "Mar 3rd.", "Mar 4th.", "Mar 6th."]},
+      {
+        no: 162,
+        text: "How many times has the event been held already?",
+        options: ["13", "14", "15", "16"],
+        passageHTML: `<div class="passage-title">Questions 162-164 refer to the following notice.</div><p><strong>Sizzling summer - town event</strong><br>By BJ</p><p>The old town of Clover Ville, Texas, is having its 14th annual BBQ cook out from Saturday 11AM to Sunday 2AM. This annual event will be even bigger this year, with challengers from all over the country to win the crown of the BBQ king. Last year's winner, Louisiana's Buck Wild will try to defend his place as champion from challengers from Florida, Mississippi, Alabama and other places.</p><p>The town will have an announcement from the mayor of Clover Ville at 12PM on the first day, and we will begin to eat right away. There will be macaroni and cheese, cornbread, chicken wings, ribs, and links for everyone cooked by the best of the best, including Buck Wild.</p><p>Admission and Parking are free, and Cypress Hill St. that leads to the church will be closed for 2 full days during the event.</p><p>There will be fun events like dance competitions, and musical performances such as TIP Harris, and Andre 3000. For more information, call BJ at 011-1111-1111.</p>`
+      },
+      {no: 163, text: "What can be referred from the second paragraph?", options: ["The mayor will eat ribs.", "Lunchtime is at 12PM.", "The food will be prepared by cooks from all over the country.", "Buck Wild is the best cook"]},
+      {no: 164, text: "What information is NOT included in the article?", options: ["Andre 3000 is from Clover Ville.", "The mayor will have an announcement.", "What kinds of food you can eat.", "What street is going to be closed down."]},
+      {
+        no: 165,
+        text: "What was most likely Randy and Shauna's relationship before this letter?",
+        options: ["They were good friends.", "They were not too good of friends.", "Shauna was Randy's girlfriend.", "Chadwick wasn't Shauna's friend."],
+        passageHTML: `<div class="passage-title">Questions 165-166 refer to the following letter.</div><p>Dear Shauna,</p><p>I just got the word from my good friend Chadwick about your husband's most tragic accident. I know we weren't always the best of friends, but I would like to say that all of that is behind us and thought that I'd give you a feel better letter. Words can't describe how I feel for your husband. I remember last week, how things started to get heated up with me and your husband but you managed to pull us apart, risking yourself getting hurt. So I know how much you loved your husband, and you two have made such a hard effort to make a good living to be a happy family.</p><p>I have made arrangements with Chadwick and all of our friends to drop by your house to see how you're doing.</p><p>Sincerely,<br>Randy</p>`
+      },
+      {no: 166, text: "What can be assumed from this letter?", options: ["Shauna and her husband are living happily.", "Randy and Shauna's husband had a fight.", "Chadwick is a girl.", "Randy is going to Chadwick's house again."]},
+      {
+        no: 167,
+        text: "What kinds of products does TCO most likely make?",
+        options: ["Computer games.", "Movies.", "Board games.", "Video chips."],
+        passageHTML: `<div class="passage-title">Questions 167-169 refer to the following announcement.</div><p>Long Beach California, August 4th,</p><p>The board of directors of TCO entertainment has announced today that the CEO of the company, Mike Jones, has stepped down from the position. The changes will take place immediately, and the new CEO of the massive company will be Joan Chase, as said by the board of directors.</p><p>"When Mr. Mike Jones was given the position of CEO in this company back in 95, he was anxious and tried his hardest to do better for the company. After his success got to him, there were a lot of problems between him and the employees, and such incidents led to two strikes just last year," said Clearance Mcarthur, on behalf of the board. "I have seen this company get larger and build success as time has passed," said Mike Jones. "I have realized even though I have helped this company get big. I do not want to disrespect it and see it fall apart just because of one man. I am sorry."</p><p>There was no word from Joan Chase, the future CEO of the company. Short facts about him are he graduated with a master's degree in gaming management from UNLV, and has worked for the company for 17 years. He enjoys the company's own products, such as Ground Zero 2, available now in stores everywhere. The minimum requirements for Ground Zero 2 are 512 MB of RAM, 128 MB graphics card, and 2.40 gig CPU drive.</p>`
+      },
+      {no: 168, text: "What is the main purpose of this press release?", options: ["To announce the release of Ground Zero 2.", "To announce the changes of the CEO position.", "To talk about Mike Jones.", "For advertisement."]},
+      {no: 169, text: "How does Mike Jones feel about the situation?", options: ["He hates the company.", "He is sorry about his actions lately.", "He doesn't want Joan Chase to be CEO.", "He doesn't want to step down."]},
+      {
+        no: 170,
+        text: "Who is this letter from?",
+        options: ["Jon Davis", "The kitchen manager", "The safety officer", "The president"],
+        passageHTML: `<div class="passage-title">Questions 170-172 refer to the following memo.</div><p><strong>Outlaw Steakhouse Inspection Note</strong></p><p><strong>Date:</strong> March 14th, 2006<br><strong>To:</strong> Jon Davis, Kitchen Manager<br><strong>From:</strong> Nathan Benjamin, President<br><strong>RE:</strong> Inspection notes</p><p>I have received word from the Safety Officer of Outlaw Steakhouse yesterday about a few things that he thinks need to be corrected after his inspection last week. Outlaw Steakhouse Long Beach, California (our second Outlaw Steakhouse and the one you are working at) has received 74 points out of a 100. That is very low, you know I expect at least an 85.</p><p>The areas where you got docked points were the fire exit, the dishwasher, air conditioner, stairway and the grill.</p><p>The fire exit had a few boxes stacked in front of the door, and the safety officer has seen the employees walk over the boxes to the other side of the kitchen, too. The fire exit was blocked and the employees were having a hard time moving around the kitchen. The dishwasher was dirty, it was out of bleach. The air conditioner needed cleaning, the stairways were slippery, and the grill had a lot of grease on the stainless steel.</p><p>The safety officer will be making a visit to your restaurant. March 17th, which is 3 days from now. Please take care of ALL of these problems, or there are going to be more problems and even a risk of losing your manager position.</p>`
+      },
+      {no: 171, text: "Why was this letter written?", options: ["To tell the manager he needs to move the boxes.", "To tell the manager he is going to have problems.", "To remind the manager about an upcoming inspection.", "To alert the manager about some of the problems in the kitchen."]},
+      {no: 172, text: "Which of the following was not mentioned?", options: ["Boxes in front of the fire exit.", "Dishwasher was out of water.", "The date the safety officer is going to check the kitchen again.", "There was grease on the stainless steel behind the grill."]},
+      {
+        no: 173,
+        text: "What is the main idea of this passage?",
+        options: ["Smoking tastes good.", "All cigarettes have filters.", "To let people know how bad cigarettes are.", "Second-hand smoking is worse than first-hand."],
+        passageHTML: `<div class="passage-title">Questions 173-175 refer to the following article.</div><p>The leading cause of lung cancer is smoking cigarettes. Tar and nicotine aren't the only things that are in cigarettes, there are thousands of chemicals that are used to make the cigarettes more addicting and taste good. Another problem with smoking is the second-hand smoke. Second-hand smoke effects all of those that are around you when you are smoking. Smoking can especially be bad in areas where the smoke can't get out, such as small rooms with closed windows. The smoke that is not filtered, that comes straight out of the burning tip is the worst because most chemicals won't get filtered through the other end. All of that smoke will be trapped in the room, making you inhale the smoke over and over again without getting any fresh air. Not to mention smokers pollute too, throwing away butts in the streets.</p>`
+      },
+      {no: 174, text: "What statement is not true about cigarettes?", options: ["The leading cause of lung cancer is cigarettes.", "Smoking tastes better in closed areas.", "Second-hand smoke can be dangerous too.", "There are thousands of chemicals in a cigarette."]},
+      {no: 175, text: "According to the passage, what is the worst way to inhale cigarette smoke?", options: ["In closed rooms", "Without it running through the filter.", "Second-hand", "Tar and nicotine"]},
+      {
+        no: 176,
+        text: "How long are the expected delays?",
+        options: ["A week.", "Less than a week.", "More than 6 days.", "Until the 18th."],
+        passageHTML: `<div class="passage-title">Questions 176-178 refer to the following letter.</div><p><strong>Fine Leathern Co.</strong><br>637 Giroux Cir. Anchorage, AK 99515<br>TEL - (907) 333-7375</p><p>May 1st</p><p>Miss Gwen Cha<br>Bailey's Antiques<br>101 C street and Arctic<br>Anchorage, AK 99504</p><p>Dear Miss Cha,</p><p>We are contacting you about order number SDQ101, the otter and bear fur you have requested a week ago. I'm afraid to tell you that we have gotten word from some hunters that it is too early to see otters and bears, and they are short on fur to sell to companies like ours. The original date due for your order was on the 18th, but I'm afraid it's going to take 6 more days. I know you are having a sale on fur soon so you need them as soon as possible, and we apologize for any inconvenience this may have caused you. You can contact us back to cancel the order, or if you manage to bear with us for the moment, we would be thankful and will give you a 10% discount on the 900-dollar order you have placed. We apologize once again for the inconvenience.</p><p>Sincerely,<br>Eric Jackson</p>`
+      },
+      {no: 177, text: "When is the order expected to be due?", options: ["May 1st", "May 18th", "A week from now", "May 24th"]},
+      {no: 178, text: "Why has shipping been delayed?", options: ["There was problem with the discount they gave Miss Cha.", "Hunters are short on fur.", "She was going to cancel the order.", "The 18th is a holiday."]},
+      {
+        no: 179,
+        text: "What has been sent with the letter?",
+        options: ["A bill", "A brochure", "A ticket to the motor show", "Photos of last year's motor show"],
+        passageHTML: `<div class="passage-title">Questions 179-180 refer to the following letter.</div><p>Mr. Arnie<br>Tiger Motors Inc<br>14 Trackers St<br>Sydney, Australia</p><p>Dear Mr. Arnie</p><p>I am writing you to let you know that the order you have placed with us was shipped July 19th, on the SS Walrus which will arrive in Sydney July 21st.</p><p>We are sure that you will be delighted once you see the cars that are ready to market in your country. I am enclosing a brochure of our models and the features each one has, along with a reasonable price to stick on these cars. I think you will find the color photos of each model interesting on page 40-64.</p><p>I am scheduled to be in Sydney July 24th to attend the annual Sydney Motor Show and I would be grateful if you can catch me there.</p><p>I will be staying at the Holiday Inn hotel until the end of July.</p><p>It has been a great pleasure doing business with you, us here at the Import Motor Co, and look forward to having a nice long business relation with you.</p><p>Sincerely,<br>Marc Edwards<br>CEO, Import Motor Co</p>`
+      },
+      {no: 180, text: "What does Mr. Edwards suggest?", options: ["That they meet in Sydney.", "That they terminate their relationship.", "More money.", "There may be problems at the hotel."]},
+      {
+        no: 181,
+        text: "What is being offered?",
+        options: ["A new cellular telephone", "Optional cellular service features", "Cellular answering service", "Different cellular rates"],
+        passageHTML: `<div class="passage-title">Questions 181-185 refer to the following letters.</div><p><strong>MULTI - STATE LONG DISTANCE</strong><br>Cellular Rate Program</p><p>Dear Multi-State customer,</p><p>Multi-state is pleased to announce that we now have new cellular rate programs available in your area! The program you are currently on is not being changed, but we wanted to share other options that are now available to you.</p><p>Enclosed are copies of the various plans. If you are interested in any of them, please feel free to call me at 1-800-8930, prompt 5. I will be glad to assist you in any way I can.</p><p>Thank you.<br>Rodney Clocksmith<br>Customer Service Representative</p><hr><p>Dear Rodney Clocksmith,</p><p>I have looked thoroughly at the programs listed on the handout you have sent me. I can't sign up for any of these programs because my phone isn't new enough. For example, what is this color photo program? Most everyone I know does not have a cell phone that can take pictures, and the walkie talkie program? That is also a top of the line cell phone too.</p><p>I have no idea why you released programs on such a wide scale, I am pretty sure 95% of your customers don't even have phones that can actually use this program. The other rates you have on here, the free 100 minutes a month program sounds good, but you have to pay 5 more dollars per month.</p><p>In the long run, each one of these rates is the same as old ones and some, I can't even use. I really see no point in sending these out to every one of your customers. One of my friends just tossed it away after looking at it for 30 seconds. Please, do not send me any one of these catalogues again, it just takes up space in my mailbox and adds trash.</p><p>Your customer,<br>Anthony Chu</p>`
+      },
+      {no: 182, text: "What is included with the letter?", options: ["Printed information", "A new telephone", "A gift certificate", "Nothing"]},
+      {no: 183, text: "What does Anthony say about most of the programs?", options: ["The 100-minute program is good.", "The programs are close to useless to him.", "The walkie talkie program is useless.", "The color photo programs are useless."]},
+      {no: 184, text: "Why doesn't Anthony like the programs listed?", options: ["It's too expensive.", "They are the same as before.", "The cell phones required for the programs are outrageous.", "He is satisfied with the plans he has now."]},
+      {no: 185, text: "What does Anthony ask the company to do?", options: ["Not send him any more of these catalogues.", "Stop giving him trash.", "Stop taking up his mailbox space.", "Send him a better catalogue next time."]},
+      {
+        no: 186,
+        text: "What would cause an account to be closed?",
+        options: ["Low balance", "Inactivity", "Unanswered telephone calls", "Returned mail"],
+        passageHTML: `<div class="passage-title">Questions 186-190 refer to the following two memos.</div><p><strong>To:</strong> All investors<br><strong>From:</strong> National bank accounting department<br><strong>Date:</strong> May 14</p><p>We are writing to inform you that your account may soon be closed. Our policy is to close customer accounts that have no balance or trading activity for eight months. Our records show that for the past six months, there have been no assets in your account and you have not placed a trace. If you would like to keep your account open, there are a number of ways to fund the account:</p><p><strong>Checks:</strong> The easiest way to fund your account is by depositing a check. To do this, simply complete the investment coupon below and return it to your check.</p><p><strong>Electronic Fund Transfer:</strong> You may electronically transfer cash into your account from another financial institution using our proprietary funds transfer service.</p><p><strong>Account Transfers:</strong> You can transfer investments from another brokerage firm to your account by completing an Account Transfer Form which can be obtained by calling customer service.</p><p>If we can answer any questions or if you need assistance in transferring assets to your account, please call Customer Service at 1-800-475-5000.</p><p>Thank you.</p><hr><p><strong>To:</strong> National bank accounting department<br><strong>From:</strong> Sam Patel<br><strong>Date:</strong> May 16</p><p>Sorry if I have caused any extra work for you guys, I forgot to terminate the account myself after I had found another company for an account with better benefits than I can get here. I had forgotten all about it, and I would greatly appreciate it if you just terminate my account. I am sorry once again for causing more work, and loved using this account but the other company has better benefits for me. Thank you.</p>`
+      },
+      {no: 187, text: "According to the letter, what is one function of customer service?", options: ["To assist opening new accounts", "To give account balances", "To provide tax information", "To help transfer money into accounts"]},
+      {no: 188, text: "How many ways of funding the account does the letter describe?", options: ["1", "2", "3", "4"]},
+      {no: 189, text: "Why did the investor want the account to be terminated?", options: ["He has found another company with better benefits.", "He feels the company needs extra work.", "He wasn't satisfied at all with the company.", "He wasn't getting enough interest with this company."]},
+      {no: 190, text: "How does the investor feel about this situation?", options: ["Sorry that he didn't notify them about what happened.", "The company needs improvement.", "Sorry that he didn't give them enough work.", "Upset because he has no money in his account."]},
+      {
+        no: 191,
+        text: "About how many viruses does Logan warn about?",
+        options: ["1-2", "3-4", "5-6", "more than 7"],
+        passageHTML: `<div class="passage-title">Questions 191-195 refer to the following e-mail messages.</div><p><strong>From:</strong> Franklin Logan<br><strong>Sent:</strong> Thursday, July 11, 5:51 PM<br><strong>To:</strong> All NCNM staff<br><strong>Subject:</strong> please read this now</p><p>In case you haven't seen a television or newspaper in the last week, let me be the first to tell you that there are at least 5 new computer viruses in circulation right now. Many of them are extraordinarily destructive.</p><p>Until further notice, you should not open any attachments to any messages unless you know what the attachment is and you need the attachment to do your work. Do not open jokes games, pictures, or anything else without receiving verification from the sender that the attachment was sent intentionally and is safe to open.</p><p>The new viruses are unusually deceptive to trick you into activating them. They may come disguised as almost anything, including invoices for products you did not buy or even patches to protect against computer viruses. On our network, virus protection updates will never come as an attachment sent by e-mail.</p><p>If you have any questions, please ask me, Pam, or Connie before opening any dubious attachment. Two clicks may be all it takes to bring our entire organization to a grinding halt for many hours.</p><hr><p><strong>From:</strong> John Anderson<br><strong>Sent:</strong> Friday, July 12, 11:54 AM<br><strong>To:</strong> Franklin Logan<br><strong>Subject:</strong> [Re] please read this now</p><p>I am leaving a message because I couldn't get a hold of you, Pam, or Connie. My ETS reports were supposed to come in today in my e-mail, and I had an e-mail in my inbox that said "ETS reports for January" I clicked, and the computer started going berserk. I was working overtime, and the only ones in the office were me and Chris. He said after I opened the mail, his computer went crazy too. Please contact me as soon as possible. Thank you, and sorry.</p>`
+      },
+      {no: 192, text: "According to Logan, what is one thing that will NOT need to be sent as an attachment by e-mail?", options: ["Office memoranda", "Payroll reports", "Anti-virus software", "Personnel records"]},
+      {no: 193, text: "What is one condition under which staff is permitted to open an attachment?", options: ["The attachment is necessary for work.", "The attachment has previously been scanned by virus protection software.", "The attachment is a word processing or a spreadsheet file.", "Under no circumstances should an attachment be opened."]},
+      {no: 194, text: "What course of action is suggested if a suspicious attachment is encountered?", options: ["Call a specialist.", "Scan the attachment with anti - virus software before opening it.", "Delete the attachment and the file to which it was attached.", "Turn off the computer."]},
+      {no: 195, text: "Why was the message left?", options: ["His ETS reports arrived late.", "He has mistakenly opened an e-mail with viruses.", "He couldn't get his ETS reports done on time.", "He wanted to know if the ETS reports were due today."]},
+      {
+        no: 196,
+        text: "What is the purpose of the plan?",
+        options: ["To help stimulate local business.", "To provide guidance for future development.", "To improve educational opportunities for neighborhood youth.", "To recruit volunteers for the West Hills Neighborhood Association."],
+        passageHTML: `<div class="passage-title">Questions 196-200 refer to the following notice and telephone message.</div><p>The West Hills Neighborhood Association will hold a general meeting from 7:30 PM to 9PM, on October 9, at Young Elementary School to update neighbors on a developing West Hills Neighborhood Plan.</p><p>The plan is in the developmental stages and will provide guidance about housing, transportation, public facilities provisions, and protection of natural resources for future development. The Neighborhood Plan Steering Committee also needs volunteers to represent the business community, the multifamily housing community, and the condominium community.</p><p>Please call West Hills Neighborhood Plan Steering Committee Chairperson Cindy Novak at 432-2993 or Sid Robinson at the City Planning Division at 487-0797 for more information.</p><hr><p>Hi, it looks like no one is available right now, so I'll just go ahead and leave a message. I am wondering if the meeting will discuss the new plans on Tutor road. That is the only interest I have right now, because oh, the traffic is so horribly bad there! I feel everything in our neighborhood is pretty good right now except for that street. So if you guys are going to discuss it, please let me know. I will be there. If not, I might be there to hear some other plans, but probably not. Thank you. Please contact me as soon as possible. This is Mary Keys.</p>`
+      },
+      {no: 197, text: "Who is Sid Robinson?", options: ["The principal of Young Elementary School", "A member of the West Hills Neighborhood Plan Steering Committee", "A contact at the City Planning Division", "A citizen opposed to the plan"]},
+      {no: 198, text: "How can the plan's progress best be described?", options: ["Beginning.", "Almost finished.", "Completed.", "Finished, but being revised."]},
+      {no: 199, text: "Why was a message left?", options: ["Couldn't get contact by phone.", "Stamps are sold out.", "The secretary wanted to take it.", "Fastest way to get contact."]},
+      {no: 200, text:"What does Mary say about Tutor road?", options:["She thinks that's the only part of town that needs work.", "There is least traffic there.", "They need more stop signs there.", "If they are mentioning Tutor road in the meeting, she will not go."]}
+    ];
+
+    const KEY = {
+      // Đáp án 41-100
+      41:"B",42:"C",43:"B",44:"D",45:"D",46:"C",47:"B",48:"D",49:"D",50:"C",51:"D",52:"C",53:"A",54:"B",55:"C",56:"C",57:"A",58:"C",59:"C",60:"A",61:"C",62:"D",63:"C",64:"C",65:"A",66:"B",67:"B",68:"C",69:"C",70:"C",
+      71:"C",72:"A",73:"B",74:"B",75:"A",76:"C",77:"A",78:"C",79:"B",80:"B",81:"C",82:"C",83:"A",84:"D",85:"A",86:"B",87:"A",88:"C",89:"C",90:"D",91:"C",92:"B",93:"B",94:"C",95:"B",96:"D",97:"C",98:"A",99:"D",100:"D",
+      // Đáp án 101-140
+      101:"B",102:"D",103:"C",104:"B",105:"A",106:"C",107:"C",108:"B",109:"A",110:"A",111:"A",112:"B",113:"D",114:"C",115:"B",116:"C",117:"D",118:"C",119:"A",120:"B",121:"A",122:"B",123:"D",124:"B",125:"C",126:"A",127:"D",128:"A",129:"B",130:"D",
+      131:"B",132:"D",133:"B",134:"C",135:"B",136:"D",137:"C",138:"A",139:"C",140:"A",
+      // Đáp án 141-200
+      141:"A",142:"B",143:"D",144:"C",145:"C",146:"B",147:"B",148:"D",149:"B",150:"B",151:"C",152:"B",153:"C",154:"D",155:"C",156:"D",157:"B",158:"D",159:"A",160:"C",161:"C",162:"A",163:"B",164:"A",165:"B",166:"B",167:"A",168:"B",169:"B",170:"D",
+      171:"D",172:"B",173:"C",174:"B",175:"B",176:"C",177:"D",178:"B",179:"B",180:"A",181:"B",182:"A",183:"B",184:"B",185:"A",186:"B",187:"D",188:"C",189:"A",190:"A",191:"C",192:"C",193:"A",194:"A",195:"B",196:"B",197:"C",198:"A",199:"A",200:"A"
+    };
+
+    const quizContainer = document.getElementById('quiz-container');
+    const summaryEl = document.getElementById('summary');
+    const btnSubmit = document.getElementById('btnSubmit');
+    let userAnswers = {};
+    let isSubmitted = false;
+
+    function renderQuiz() {
+      quizContainer.innerHTML = "";
+      
+      // Create a wrapper for grid items to sit in
+      let gridWrapper = document.createElement('div');
+      gridWrapper.className = 'grid';
+
+      QUESTIONS.forEach(q => {
+        // If the question has a passage, finalize the previous grid and show the passage
+        if (q.passageHTML) {
+          quizContainer.appendChild(gridWrapper); // Append the grid of questions for the previous passage
+          gridWrapper = document.createElement('div'); // Start a new grid for the new passage
+          gridWrapper.className = 'grid';
+
+          const passageEl = document.createElement('div');
+          passageEl.className = 'passage';
+          passageEl.innerHTML = q.passageHTML;
+          quizContainer.appendChild(passageEl);
+        }
+
+        const card = document.createElement("div");
+        card.className = "card";
+        const choicesHTML = q.options.map((opt, i) => {
+          const letter = String.fromCharCode(65 + i);
+          const choiceId = `q${q.no}_${letter}`;
+          const isChecked = userAnswers[q.no] === letter;
+          let choiceClass = "choice";
+          if (isSubmitted) {
+            if (KEY[q.no] === letter) {
+              choiceClass += " correct";
+            } else if (isChecked) {
+              choiceClass += " incorrect";
+            }
+          }
+          return `
+            <label class="${choiceClass}" for="${choiceId}">
+              <input type="radio" name="q${q.no}" id="${choiceId}" value="${letter}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''}>
+              <div><strong>${letter}.</strong> ${opt}</div>
+            </label>
+          `;
+        }).join("");
+        let explanationHTML = '';
+        if (isSubmitted && userAnswers[q.no] && userAnswers[q.no] !== KEY[q.no]) {
+            explanationHTML = `<div class="explain">Đáp án đúng là: <strong>${KEY[q.no]}</strong></div>`;
+        }
+        card.innerHTML = `
+          <div class="qno">Câu ${q.no}</div>
+          <div class="qtext">${q.text.replace(/_____/g, '______')}</div>
+          <div class="choices">${choicesHTML}</div>
+          ${explanationHTML}
+        `;
+        gridWrapper.appendChild(card);
+      });
+      
+      quizContainer.appendChild(gridWrapper); // Append the last grid
+
+      if (!isSubmitted) {
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+          input.addEventListener('change', (event) => {
+            const questionNumber = event.target.name.substring(1);
+            userAnswers[questionNumber] = event.target.value;
+          });
+        });
+      }
+    }
+
+    function handleSubmit() {
+        const totalQuestions = QUESTIONS.length;
+        const answeredCount = Object.keys(userAnswers).length;
+        if (answeredCount < totalQuestions) {
+            if (!confirm(`Bạn còn ${totalQuestions - answeredCount} câu chưa trả lời. Bạn có chắc muốn nộp bài không?`)) {
+                return;
+            }
+        }
+        isSubmitted = true;
+        let score = 0;
+        QUESTIONS.forEach(q => {
+            if (userAnswers[q.no] === KEY[q.no]) { score++; }
+        });
+        const percentage = Math.round((score / totalQuestions) * 100);
+        summaryEl.innerHTML = `<strong>Kết quả:</strong> Bạn đã trả lời đúng ${score}/${totalQuestions} câu (${percentage}%).`;
+        summaryEl.style.display = 'block';
+        btnSubmit.disabled = true;
+        renderQuiz();
+        summaryEl.scrollIntoView({ behavior: 'smooth' });
+    }
+    btnSubmit.addEventListener('click', handleSubmit);
+    renderQuiz();
+  </script>
+</body>
+</html>
